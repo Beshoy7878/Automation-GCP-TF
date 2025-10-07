@@ -81,10 +81,7 @@ jobs:
                 sudo apt update
                 sudo apt install -y gh
       
-      # Login used PAT
-      - name: Authenticate GitHub CLI
-        run: echo "${{ secrets.GH_PAT }}" | gh auth login --with-token
-
+      
       # Create new repo
       - name: Create new repo
         id: create_repo
@@ -95,7 +92,9 @@ jobs:
            REPO_URL="https://x-access-token:${{ secrets.GH_PAT }}@github.com/Beshoy7878/$REPO_NAME.git"
            echo "REPO_URL=$REPO_URL" >> $GITHUB_ENV
 
-      # Connect the local project to the new repo and make a push
+           
+
+      ##### Connect the local project to the new repo and make a push
       - name: Initialize new git and push
         run: |
            git remote remove origin || true
