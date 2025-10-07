@@ -97,6 +97,8 @@ jobs:
         run: |
            git remote remove origin || true
            git remote add origin $REPO_URL
+           git config --global user.name "Beshoy7878"
+           git config --global user.email "beshoseha@gmail.com"
            git branch -M main
            git add .
            git commit -m "Initial commit"
