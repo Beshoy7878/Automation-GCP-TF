@@ -76,27 +76,20 @@ jobs:
       - name: Run deployment script
         run: python scripts/deploy.py --overwrite
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+       # Configure Git user for the commit
+      - name: Configure Git
+        run: |
+          git config --global user.name "Beshoy7878"
+          git config --global user.email "beshooseha@gmail.com"
 
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-update Terraform project"
-          commit_user_name: GitHub Actions Bot
-          commit_user_email: actions@github.com
-          commit_author: GitHub Actions <actions@github.com>
-          file_pattern: "generated_projects/**"
+      # Create a new branch and commit the output
+      - name: Create and commit changes to the new branch
+        run: |
+          # Use the branch name from the manual trigger input
+          git checkout -b ${{ github.event.inputs.branch_name }}
+          git add .
+          git commit -m "Auto GCP Project Plan results for workflow run ${{ github.run_number }}" || echo "No changes to commit"
 
-      - name: Notify Slack
-        if: success()
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          payload: |
-            {
-              "text": "Provisioning completed successfully! 🎉",
-              "username": "GitHub Actions",
-              "icon_emoji": ":rocket:"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # Push the new branch to the repository
+      - name: Push new branch
+        run: git push origin ${{ github.event.inputs.branch_name }} --forc
