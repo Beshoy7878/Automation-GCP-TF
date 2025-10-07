@@ -81,23 +81,12 @@ jobs:
                 sudo apt update
                 sudo apt install -y gh
       
-      
-      # Create new repo
-      - name: Create new repo
-        id: create_repo
+      - name: Authenticate GitHub CLI
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-              REPO_NAME="project-$(date +%s)"
-              echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
-    
-              gh repo create Beshoy7878/$REPO_NAME --public --confirm
-              REPO_URL="https://x-access-token:$GH_TOKEN@github.com/Beshoy7878/$REPO_NAME.git"
-              echo "REPO_URL=$REPO_URL" >> $GITHUB_ENV
-
-           
-           
-
+         echo $GH_TOKEN | gh auth login --with-token
+     
       ##### Connect the local project to the new repo and make a push
       - name: Initialize new git and push
         env:
@@ -105,9 +94,8 @@ jobs:
         run: |
            git init
            git remote remove origin || true
-           git remote add origin "https://x-access-token:$GH_TOKEN@github.com/Beshoy7878/$REPO_NAME.git"
-           git config  user.name "Beshoy7878"
-           git config  user.email "beshoseha@gmail.com"
+           git remote add origin "https://github.com/Beshoy7878/tf-gcp-automation-b"
+           
            git branch -M main
            git add .
            git commit -m "Initial commit"
