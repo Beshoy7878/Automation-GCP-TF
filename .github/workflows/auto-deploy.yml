@@ -85,6 +85,8 @@ jobs:
       # Create new repo
       - name: Create new repo
         id: create_repo
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
            REPO_NAME="project-$(date +%s)" 
            echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
