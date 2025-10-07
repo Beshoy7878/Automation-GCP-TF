@@ -85,11 +85,10 @@ jobs:
       # Create a new branch and commit the output
       - name: Create and commit changes to the new branch
         run: |
-          # Use the branch name from the manual trigger input
+          
           git checkout -b ${{ github.event.inputs.branch_name }}
           git add .
           git commit -m "Auto GCP Project Plan results for workflow run ${{ github.run_number }}" || echo "No changes to commit"
-
       # Push the new branch to the repository
       - name: Push new branch
-        run: git push origin ${{ github.event.inputs.branch_name }} --forc
+        run: git push origin ${{ github.event.inputs.branch_name }} --force
