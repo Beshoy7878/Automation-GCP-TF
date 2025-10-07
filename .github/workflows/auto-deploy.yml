@@ -90,7 +90,7 @@ jobs:
         id: create_repo
         run: |
            gh repo create my-new-repo --public --confirm
-           echo "REPO_URL=$(gh repo view my-new-repo --json sshUrl -q .sshUrl)" >> $GITHUB_ENV
+           echo "REPO_URL=$(gh repo view my-new-repo2 --json sshUrl -q .sshUrl)" >> $GITHUB_ENV
 
       # Connect the local project to the new repo and make a push
       - name: Initialize new git and push
