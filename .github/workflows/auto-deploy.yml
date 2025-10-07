@@ -77,18 +77,16 @@ jobs:
         run: python scripts/deploy.py --overwrite
 
 
-      - name: Initialize git and push
+      - name: Setup Git
         run: |
-          git init
-          git remote remove origin || true
-          git remote add origin "https://x-access-token:${{ secrets.GH_PAT }}@github.com/Beshoy7878/existing-repo.git"
           git config user.name "Beshoy7878"
           git config user.email "beshoseha@gmail.com"
-          git branch -M main
+
+      - name: Add, commit and push
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          
           git add .
-          git commit -m "Update project"
-          git push -u origin main
-
-      
-
-
+          git commit -m "Update project files" || echo "No changes to commit"
+          git push "https://x-access-token:$GH_PAT@github.com/Beshoy7878/tf-gcp-automation-b.git" main
