@@ -76,31 +76,18 @@ jobs:
       - name: Run deployment script
         run: python scripts/deploy.py --overwrite
 
-      - name: Install GitHub CLI
-        run: |
-                sudo apt update
-                sudo apt install -y gh
-      
-      - name: Authenticate GitHub CLI
-        env:
-           GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-         echo $GH_TOKEN | gh auth login --with-token
-     
-      ##### Connect the local project to the new repo and make a push
-      - name: Initialize new git and push
-        env:
-         GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-           git init
-           git remote remove origin || true
-           git remote add origin "https://github.com/Beshoy7878/tf-gcp-automation-b"
-           
-           git branch -M main
-           git add .
-           git commit -m "Initial commit"
-           git push -u origin main
 
+      - name: Initialize git and push
+        run: |
+          git init
+          git remote remove origin || true
+          git remote add origin "https://x-access-token:${{ secrets.GH_PAT }}@github.com/Beshoy7878/existing-repo.git"
+          git config user.name "Beshoy7878"
+          git config user.email "beshoseha@gmail.com"
+          git branch -M main
+          git add .
+          git commit -m "Update project"
+          git push -u origin main
 
       
 
