@@ -76,15 +76,17 @@ jobs:
       - name: Run deployment script
         run: python scripts/deploy.py --overwrite
 
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        #  Commit and push generated Terraform project
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto-generate Terraform project from config"
+          commit_message: "Auto-update Terraform project"
           commit_user_name: GitHub Actions Bot
           commit_user_email: actions@github.com
           commit_author: GitHub Actions <actions@github.com>
+          file_pattern: "generated_projects/**"
 
       - name: Notify Slack
         if: success()
