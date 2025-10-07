@@ -98,10 +98,12 @@ jobs:
 
       ##### Connect the local project to the new repo and make a push
       - name: Initialize new git and push
+        env:
+         GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
            git init
            git remote remove origin || true
-           git remote add origin $REPO_URL
+           git remote add origin "https://x-access-token:$GH_TOKEN@github.com/Beshoy7878/$REPO_NAME.git"
            git config  user.name "Beshoy7878"
            git config  user.email "beshoseha@gmail.com"
            git branch -M main
