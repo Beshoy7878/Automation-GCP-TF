@@ -88,12 +88,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-           REPO_NAME="project-$(date +%s)" 
-           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
-           gh auth login --with-token <<< "$GH_TOKEN"
-           gh repo create Beshoy7878/$REPO_NAME --public --confirm
-           REPO_URL="https://x-access-token:${{ secrets.GH_PAT }}@github.com/Beshoy7878/$REPO_NAME.git"
-           echo "REPO_URL=$REPO_URL" >> $GITHUB_ENV
+              REPO_NAME="project-$(date +%s)"
+              echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+    
+              gh repo create Beshoy7878/$REPO_NAME --public --confirm
+              REPO_URL="https://x-access-token:$GH_TOKEN@github.com/Beshoy7878/$REPO_NAME.git"
+              echo "REPO_URL=$REPO_URL" >> $GITHUB_ENV
 
            
            
