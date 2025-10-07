@@ -20,7 +20,7 @@ jobs:
       id-token: write
 
     env:
-      GOOGLE_CREDENTIALS: ${{ secrets.GCP_Credentials}}
+      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS}}
       TF_IN_AUTOMATION: true
       TF_INPUT: false
 
@@ -53,7 +53,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
-           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Install gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
