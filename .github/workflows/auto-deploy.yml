@@ -86,9 +86,9 @@ jobs:
 
       # Create new branch, commit, and push generated_projects
       - name: Commit and push generated projects
-        env : 
-          BRANCH_NAME: my-new-branch
+        
         run: |
+          BRANCH_NAME=generated-branch-${{ github.run_number }}
           git checkout  -B $BRANCH_NAME
           git add generated_projects
           git commit -m "Add generated projects from workflow run ${{ github.run_number }}" || echo "No changes to commit"
