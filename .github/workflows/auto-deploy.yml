@@ -92,4 +92,4 @@ jobs:
           git checkout  -B $BRANCH_NAME
           git add generated_projects
           git commit -m "Add generated projects from workflow run ${{ github.run_number }}" || echo "No changes to commit"
-          git push origin ${{ github.event.inputs.branch_name }} --force
+          git push --set-upstream origin $BRANCH_NAME --force
